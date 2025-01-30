@@ -1,6 +1,5 @@
-
 /*
- * *** PLACE YOUR NAME / SECTION  HERE ***
+ * *** Alex Parker / COMP 272/400C-002 - Spring 2025 ***
  *
  * Homework # 1 (Programming Assignment). This Java class defines some basic
  * manipulation operations on Linked-Lists and Stacks.
@@ -22,13 +21,13 @@ public class HW1 {
      * contains a single integer values.
      *
      * Methods:
-     *  - void   sortInserted(val)     - Inserts value 'val' into the linked-list in
+     *  - void   sortedInsert(val)     - Inserts value 'val' into the linked-list in
      *                                   sorted fashion
-     *  - void   removeElementsLT(val) - Removed values in the linked-list that are less
+     *  - void   removeElementsLT(val) - Removes values in the linked-list that are less
      *                                   than 'val'
      *  - void   removeElement(val)    - Removes all values in the linked list of
      *                                   value 'val'
-     *  - String toString()            - coverts and returns the linked-lists as a string
+     *  - String toString()            - Converts and returns the linked-lists as a string
      *                                   delimited by brackets []
      *
      */
@@ -38,7 +37,7 @@ public class HW1 {
             int data;
             Node next;
 
-            Node(int d)  {        // Constructor
+            Node(int d) {        // Constructor
                 data = d;
                 next = null;
             }
@@ -48,22 +47,21 @@ public class HW1 {
 
         /*
          * Method sortedInsert() - this method will insert a new node to the
-         * linked list containing the value specific in teh parameter 'data'.
+         * linked list containing the value specific in the parameter 'data'.
          * The newly inserted node will be inserted in sorted order within
          * the linked-list.
          *
          */
-        public void sortedInsert ( int data ) {
+        public void sortedInsert(int data) {
             Node new_node = new Node(data);
-
             new_node.next = null;
 
             // Special case for head node.
-            if (this.head == null || head.data >= new_node.data ) {
+            if (this.head == null || head.data >= new_node.data) {
                 new_node.next = head;
                 head = new_node;
             } else {
-                // locate the node before the point of insertion
+                // Locate the node before the point of insertion
                 Node current = this.head;
 
                 // Identify where to place the item to insert
@@ -73,44 +71,56 @@ public class HW1 {
                 new_node.next = current.next;
                 current.next = new_node;
             }
-
-            return;
         }
 
 
         /*
          * Method removeElementsLT() - this method removes all nodes that contain a
          * value that is less than the provided parameter 'ltValue'.
-         *
-         * The method will invoke the method removeElements for each element
-         * found in the linked-list that is less than thr parameter value passed.
          */
-        public void removeElementsLT ( int ltValue ) {
+        public void removeElementsLT(int value) {
+            while (head != null && head.data < value) {
+                head = head.next;
+            }
 
-            // YOUR CODE GOES HERE
-
-            return;
+            Node current = head;
+            while (current != null && current.next != null) {
+                if (current.next.data < value) {
+                    current.next = current.next.next;
+                } else {
+                    current = current.next;
+                }
+            }
         }
+
 
 
         /*
          * Method removeElement() - this method removes all nodes that contain a
          * value equal to the value the provided parameter 'value'.
          */
+        public void removeElement(int value) {
+            while (head != null && head.data == value) {
+                head = head.next;
+            }
 
-        public void removeElement ( int value ) {
-
-            // YOUR CODE GOES HERE
-
-            return;
+            Node current = head;
+            while (current != null && current.next != null) {
+                if (current.next.data == value) {
+                    current.next = current.next.next;
+                } else {
+                    current = current.next;
+                }
+            }
         }
+
 
 
         /*
          * Method toString() - this is a helper method for printing / constructing
          * a string object from the linked-list.
          */
-        public String toString () // Method to output the LinkedList as a String
+        public String toString() // Method to output the LinkedList as a String
         {
             String output = "[";
             Node currNode = this.head;
@@ -122,6 +132,11 @@ public class HW1 {
         }
 
     } // End class LinkedList
+
+
+
+
+    /*
 
 
 
@@ -156,12 +171,20 @@ public class HW1 {
          * The method should utilize the provided Stack class.
          */
         public static boolean isPalindrome(String input) {
-
+            String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
             Stack<Character> stack = new Stack<>();
-            input = input.toLowerCase().replaceAll("\\s+", "");
 
-            // Your CODE GOES HERE
-            return false;
+            for (char c : normalized.toCharArray()) {
+                stack.push(c);
+            }
+
+            for (char c : normalized.toCharArray()) {
+                if (stack.pop() != c) {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
 
@@ -180,11 +203,20 @@ public class HW1 {
          * pop elements off the passed in stack, place them in a temp stack. Then when
          * completed, place them all back in teh original stack.
          */
-        public static int findLargestK(Stack<Integer> stack, int k) {
+        public static int findLargestK(Stack<Integer> stack, int K) {
+            int largestIndex = -1;
+            int index = 0;
 
-            // YOUR CODE GOES HERE
-            return -1;
+            for (int num : stack) {
+                if (num == K) {
+                    largestIndex = index;
+                }
+                index++;
+            }
+
+            return largestIndex;
         }
+
 
     }  // End class Stacks
 
@@ -216,10 +248,10 @@ public class HW1 {
          *   4. O(N * M) time, O(N + M) space
          *
          * TODO: return the answer (which option is correct), in the return statement
-        */
+         */
 
         // RETURN THE CORRECT OPTION NUMBER LISTED ABOVE
-        return -1;
+        return 3;
     }
 
 
@@ -240,8 +272,10 @@ public class HW1 {
          */
 
         // RETURN THE CORRECT OPTION LISTED ABOVE
-        return -1;
+        return 2;
     }
+
+}
 
 }
 
